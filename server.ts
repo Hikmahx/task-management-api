@@ -14,6 +14,11 @@ app.use(express.json({ extended: false }));
 // CORS
 app.use(cors());
 
+// ROUTES
+app.use("/api/auth", require("./routes/auth.route"));
+app.use("/api/users", require("./routes/user.route"));
+app.use("/api/tasks", require("./routes/task.route"));
+
 app.get("/", (req: any, res: any) => {
   console.log("Hello world");
   return res.status(200).json({ message: "Hi there! This is a backend API for task management system" });
