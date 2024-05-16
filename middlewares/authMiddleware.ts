@@ -41,7 +41,6 @@ export const verifyToken = (
   }
 };
 
-// TO CHECK IF THE USER IS THE ONE MAKING THE REQUEST
 export const verifyTokenAndUser = (
   req: AuthRequest,
   res: Response,
@@ -55,41 +54,3 @@ export const verifyTokenAndUser = (
     }
   });
 };
-
-// VERIFY IF THE USER IS AN ADMIN
-export const verifyTokenAndAdmin = (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  verifyToken(req, res, () => {
-    try {
-      if (req.user?.role != "admin") {
-        return res.status(403).json({ message: "Access denied" });
-      }
-      next();
-    } catch (error) {
-      return res.status(401).json({ message: "Invalid token" });
-    }
-  });
-};
-
-// export const verifiedUser = async (
-//   req: AuthRequest,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     // Fetch the user from the database based on the user ID in the token
-//     const user = await User.findById(req.user?.id);
-
-//     if (user?.verified) {
-//       next();
-//     } else {
-//       res.status(403).json({ message: "You need to be verified to do this" });
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// };
